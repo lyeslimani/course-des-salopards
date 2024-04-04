@@ -34,9 +34,8 @@ WA.onInit().then(() => {
 
     WA.room.area.onLeave('clock').subscribe(closePopup)
 
-    // when i click space lisetener native js
     document.addEventListener('keypress', (event) => {
-        if (event.code === 'Space') {
+        if (event.code === 'KeyZ') {
             console.log(WA.players.list())
         }
     });
