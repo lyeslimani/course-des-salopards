@@ -24,7 +24,7 @@ WA.onInit().then(() => {
             }, {
                 label: "alert",
                 className: "primary",
-                callback: (popup) => {
+                callback: () => {
                     alert('alert')
                 }
             },
