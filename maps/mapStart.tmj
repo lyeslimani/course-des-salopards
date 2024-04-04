@@ -124,58 +124,92 @@
          "objects":[
                 {
                  "height":96,
-                 "id":1,
-                 "name":"start",
+                 "id":9,
+                 "name":"startArea",
                  "rotation":0,
-                 "type":"",
+                 "type":"area",
                  "visible":true,
                  "width":65.6364,
-                 "x":255.864,
-                 "y":160.045
+                 "x":246.1818,
+                 "y":150
                 }, 
                 {
-                 "height":63.5,
+                 "height":57,
                  "id":2,
-                 "name":"startPopup",
+                 "name":"clock",
                  "rotation":0,
-                 "type":"",
+                 "type":"area",
                  "visible":true,
-                 "width":94,
-                 "x":129,
-                 "y":160
+                 "width":50.5,
+                 "x":221,
+                 "y":55
                 }, 
                 {
-                 "height":294,
+                 "height":323,
                  "id":3,
                  "name":"inside",
                  "rotation":0,
-                 "type":"",
+                 "type":"area",
                  "visible":true,
                  "width":334.5,
                  "x":-6,
                  "y":-7.5
                 }, 
                 {
-                 "height":101.5,
+                 "height":61.5,
                  "id":4,
                  "name":"outside",
                  "rotation":0,
-                 "type":"",
+                 "type":"area",
                  "visible":true,
-                 "width":335,
-                 "x":-6,
-                 "y":289.5
+                 "width":320.5,
+                 "x":0.5,
+                 "y":319
                 }, 
                 {
-                 "height":31,
+                 "height":20.0000031769893,
                  "id":5,
                  "name":"welcomePopup",
+                 "rotation":0.0435460904283333,
+                 "type":"",
+                 "visible":true,
+                 "width":143.993133658812,
+                 "x":62.0117880758684,
+                 "y":292.97967387262
+                }, 
+                {
+                 "height":63.5,
+                 "id":7,
+                 "name":"startPopup",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":53.5,
-                 "x":197,
-                 "y":224.5
+                 "width":94,
+                 "x":132,
+                 "y":155.75
+                }, 
+                {
+                 "height":24.9065403738708,
+                 "id":10,
+                 "name":"clockPopUp",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":50.2872892244258,
+                 "x":269.341166309787,
+                 "y":0.710965197636153
+                }, 
+                {
+                 "height":0,
+                 "id":11,
+                 "name":"playersReadyIds",
+                 "point":true,
+                 "rotation":0,
+                 "type":"variable",
+                 "visible":true,
+                 "width":0,
+                 "x":276.5,
+                 "y":186.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -230,8 +264,14 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":7,
+ "nextobjectid":14,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"script",
+         "type":"string",
+         "value":"..\/src\/waitingRoomScript\/waitingRoom.ts"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
  "tileheight":32,
