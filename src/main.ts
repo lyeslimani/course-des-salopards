@@ -1,5 +1,5 @@
 import {bootstrapExtra} from "@workadventure/scripting-api-extra";
-import {setupObstacleTriggers} from "./events/game-race/area-triggers";
+import {setupCourseTriggers} from "./events/game-race/area-triggers";
 import {GameRaceEvents, setupGameListeners} from "./events/game-race/events";
 
 console.log('Script started successfully');
@@ -10,9 +10,8 @@ WA.onInit().then(async () => {
     console.log('Player tags: ', WA.player.tags)
     console.log('Player id: ', WA.player.playerId)
 
-    setupObstacleTriggers()
+    setupCourseTriggers()
     setupGameListeners()
-
     await startGame()
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
