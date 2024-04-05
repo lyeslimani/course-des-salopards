@@ -210,6 +210,29 @@
                  "width":0,
                  "x":276.5,
                  "y":186.5
+                }, 
+                {
+                 "height":30.9244383346993,
+                 "id":14,
+                 "name":"popup",
+                 "rotation":0.0435461,
+                 "type":"",
+                 "visible":true,
+                 "width":317.213376344877,
+                 "x":1.71074404007832,
+                 "y":350.428423355983
+                }, 
+                {
+                 "height":0,
+                 "id":15,
+                 "name":"players",
+                 "point":true,
+                 "rotation":0,
+                 "type":"variable",
+                 "visible":true,
+                 "width":0,
+                 "x":281.561672233099,
+                 "y":192.375906944604
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -264,7 +287,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":14,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "properties":[
         {

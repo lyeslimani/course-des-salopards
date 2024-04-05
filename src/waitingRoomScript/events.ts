@@ -9,17 +9,17 @@ export function onPlayerSpawn(player: WorkadventurePlayerCommands) {
 function welcome(playerName: String) {
     let welcomePopUp = WA.ui.openPopup(ObjectWaitingRoom.WELCOME_POP_UP, `Welcome : ${playerName} `, []);
     setTimeout(() => closePopup(welcomePopUp), 2000)
-
 }
-export function onPlayerInside() {
-    WA.room.area.onEnter(ObjectWaitingRoom.INSIDE).subscribe(async () => {
-        WA.room.hideLayer(ObjectWaitingRoom.WALLS);
+
+export function onPlayerInside(zone: ObjectWaitingRoom, callback: () => void) {
+    WA.room.area.onEnter(zone).subscribe(async () => {
+        callback();
     })
 }
 
-export function onPlayerOutside() {
-    WA.room.area.onEnter(ObjectWaitingRoom.OUTSIDE).subscribe(async () => {
-        WA.room.showLayer(ObjectWaitingRoom.WALLS);
+export function onPlayerOutside(zone: ObjectWaitingRoom, callback: () => void) {
+    WA.room.area.onEnter(zone).subscribe(async () => {
+        callback();
     })
 }
 
@@ -35,7 +35,7 @@ export function onClock(clockPopUp: Popup) {
 
 }
 
-function closePopup(popUp: Popup) {
+export function closePopup(popUp: Popup) {
     if (popUp !== undefined) {
         popUp.close();
     }
