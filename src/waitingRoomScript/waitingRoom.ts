@@ -60,13 +60,14 @@ WA.onInit().then(async () => {
         // WA.event.broadcast('players', Array.from(getPlayers()))
     });
 
-    // WA.event.on('players').subscribe(async (ev) => {
-    //     // console.log(ev)
-    //     const players = new Set(ev.data as any)
-    //     // console.log('players events')
-    //     console.log(players)
-    //     // await WA.state.saveVariable('players', players)
-    // })
+    WA.event.on('teleportPlayer').subscribe(async (ev) => {
+        console.log(WA.player.uuid || '')
+        console.log(ev.data)
+        if (WA.player.uuid === ev.data) {
+            console.log('teleporting player')
+            WA.nav.goToRoom('../maps/cds.tmj');
+        }
+    })
 
     const subPlayers = WA.state.onVariableChange('players').subscribe((x) => {
         // players = x as string[] || []
@@ -80,14 +81,20 @@ WA.onInit().then(async () => {
         id: startGameBtnName,
         label: 'Start game',
         callback: (event) => {
-        console.log('players', getPlayers().values.length)
-            if (getPlayers().values.length < 2) {
+        console.log('players', getPlayers().size)
+            if (getPlayers().size < 2) {
                 const popup = WA.ui.openPopup('popup', 'You need at least 2 players to start the game', []);
                 setTimeout(() => closePopup(popup), 2000)
                 return;
             }
 
-            //
+            // TELEPORT TO ROOM
+            console.log(Array.from(getPlayers().values()))
+            for (const player of Array.from(getPlayers().values())) {
+                console.log("teleport", player)
+                WA.event.broadcast('teleportPlayer', player)
+            }
+                
         }
     });
 
