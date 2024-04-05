@@ -4,6 +4,8 @@ import {quizData} from "../../questions";
 export enum GameRaceEvents {
     GAME_START_COUNTDOWN = "game:start_countdown",
     GAME_START_COUNTDOWN_END = "game:start_countdown_end",
+    GAME_END = "game:end",
+    GAME_RESTART = "game:restart",
     SHOW_QUIZ = "quiz:enter",
     WRONG_ANSWER = "quiz:wrong_answer",
     RIGHT_ANSWER = "quiz:right_answer",
@@ -32,6 +34,16 @@ export function setupGameListeners() {
         WA.controls.restorePlayerControls()
         handleGameCountdownEnd()
     })
+
+    WA.event.on(GameRaceEvents.GAME_END).subscribe((eventData: ScriptingEvent) => {
+        let data = eventData.data as any
+        WA.controls.disablePlayerControls()
+        handleGameEndForWinner(data.concernedPlayerName, data.concernedPlayerId)
+        handleGameEndForLooser(data.concernedPlayerId)
+
+        WA.event.broadcast(GameRaceEvents.GAME_RESTART, {}).then()
+    })
+
     WA.event.on(GameRaceEvents.SHOW_QUIZ).subscribe(async (eventData: ScriptingEvent) => {
         SoundCollection.quizTime.play({})
         let data = eventData.data as any
@@ -41,6 +53,15 @@ export function setupGameListeners() {
         WA.controls.disablePlayerControls()
         await showQuiz(data.obstacle)
     })
+
+    WA.event.on(GameRaceEvents.GAME_RESTART).subscribe(async () => {
+        await new Promise(r => setTimeout(r, 5000));
+        WA.ui.banner.closeBanner()
+
+        console.log('teleporting player')
+        WA.nav.goToRoom('../maps/mapStart.tmj');
+    })
+
     WA.event.on(GameRaceEvents.RIGHT_ANSWER).subscribe(async (eventData) => {
         let data = eventData.data as any
         if (data.concernedPlayer !== WA.player.playerId) {
@@ -96,6 +117,43 @@ export const handleGameCountdownEnd = () => {
         textColor: "#8c7b75",
         closable: false,
         timeToClose: 3000,
+    });
+}
+
+export const handleGameEndForWinner = (playerName: string, playerId: number ) => {
+    if(playerId !== WA.player.playerId) {
+        return
+    }
+
+    const paralysedSound = WA.sound.loadSound('/sound/victory.wav')
+    paralysedSound.play({})
+
+
+    WA.ui.banner.openBanner({
+        id: "banner-test",
+        text: `${playerName} winnnnnn !!!!!`,
+        bgColor: "#deff89",
+        textColor: "#8c7b75",
+        closable: false,
+        timeToClose: 120000,
+    });
+}
+
+export const handleGameEndForLooser = (playerId: number) => {
+    if(playerId == WA.player.playerId) {
+        return
+    }
+
+    const paralysedSound = WA.sound.loadSound('/sound/booing_effect.wav')
+    paralysedSound.play({loop: false})
+
+    WA.ui.banner.openBanner({
+        id: "banner-test",
+        text: `LOO00000000000000000000000SER !!!!!`,
+        bgColor: "#de0a11",
+        textColor: "#ffffff",
+        closable: false,
+        timeToClose: 120000,
     });
 }
 
