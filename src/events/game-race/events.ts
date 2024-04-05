@@ -16,6 +16,11 @@ export interface QuizData {
     rightAnswer: number
 }
 
+export const SoundCollection = {
+    quizTime: WA.sound.loadSound('/sound/quiz_time.ogg'),
+    sus: WA.sound.loadSound('/sound/sus.mp3'),
+}
+
 const iPopupQueue: Popup[] = []
 
 export function setupGameListeners() {
@@ -28,8 +33,9 @@ export function setupGameListeners() {
         handleGameCountdownEnd()
     })
     WA.event.on(GameRaceEvents.SHOW_QUIZ).subscribe(async (eventData: ScriptingEvent) => {
+        SoundCollection.quizTime.play({})
         let data = eventData.data as any
-        if(data.concernedPlayer !== WA.player.playerId) {
+        if (data.concernedPlayer !== WA.player.playerId) {
             return
         }
         WA.controls.disablePlayerControls()
@@ -37,7 +43,7 @@ export function setupGameListeners() {
     })
     WA.event.on(GameRaceEvents.RIGHT_ANSWER).subscribe(async (eventData) => {
         let data = eventData.data as any
-        if(data.concernedPlayer !== WA.player.playerId) {
+        if (data.concernedPlayer !== WA.player.playerId) {
             return
         }
         const paralysedSound = WA.sound.loadSound('/sound/right_answer.wav')
@@ -52,7 +58,7 @@ export function setupGameListeners() {
     })
     WA.event.on(GameRaceEvents.WRONG_ANSWER).subscribe((eventData) => {
         let data = eventData.data as any
-        if(data.concernedPlayer !== WA.player.playerId) {
+        if (data.concernedPlayer !== WA.player.playerId) {
             return
         }
         const wrongAnswer = WA.sound.loadSound('/sound/wrong_answer.wav')
@@ -101,10 +107,16 @@ export const showQuiz = async (obstacleName: string) => {
             className: "primary",
             callback: (popup) => {
                 if (answer.id === randomQuestion.rightAnswer) {
-                    WA.event.broadcast(GameRaceEvents.RIGHT_ANSWER, {concernedPlayer:WA.player.playerId,questionId: randomQuestion.id}).then()
+                    WA.event.broadcast(GameRaceEvents.RIGHT_ANSWER, {
+                        concernedPlayer: WA.player.playerId,
+                        questionId: randomQuestion.id
+                    }).then()
                     popup.close()
                 } else {
-                    WA.event.broadcast(GameRaceEvents.WRONG_ANSWER, {concernedPlayer:WA.player.playerId,questionId: randomQuestion.id}).then()
+                    WA.event.broadcast(GameRaceEvents.WRONG_ANSWER, {
+                        concernedPlayer: WA.player.playerId,
+                        questionId: randomQuestion.id
+                    }).then()
                 }
             },
         }
